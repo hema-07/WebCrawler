@@ -3,6 +3,7 @@ package webcrawler_project;
 import java.util.ConcurrentModificationException;
 import java.util.HashSet;
 import java.util.Iterator;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -13,10 +14,18 @@ public class WebCrawlerSearch {
 	HashSet<String> result =  new HashSet<String>();
 	HashSet<String> webImages =  new HashSet<String>();
 	HashSet<String> webExternal =  new HashSet<String>();
-	String url = "http://www.wipro.com"; 
+	String url = "https://www.wipro.com/"; 
 	
 	public String find() {
 		getURL(url);
+		//---------------------------print link ------------------------------
+//		System.out.println("links from ->"+url);
+//		
+//		Iterator link = result.iterator();
+//		while(link.hasNext()) {
+//			System.out.println(link.next());
+//		}
+		
 		//---------------------------print images ------------------------------
 		System.out.println("Images from ->"+url);
 		Iterator img = webImages.iterator();
@@ -41,6 +50,7 @@ public class WebCrawlerSearch {
 		try {
 			
 			doc = Jsoup.connect(a).get();
+			result.add(a);
 			org.jsoup.select.Elements links = doc.select("a[href]");
 			org.jsoup.select.Elements images = doc.select("[src]");
 			org.jsoup.select.Elements external = doc.select("link[href]");
@@ -48,9 +58,9 @@ public class WebCrawlerSearch {
 			//------------------------links---------------------------------------------
 			for(Element e: links) {
 				if(e.attr("abs:href")!=null && e.attr("abs:href").trim()!="") {
-					result.add(a);
 					set.add(e.attr("abs:href"));
 					set.remove(a);
+					
 				}
 				
 			}
@@ -72,22 +82,13 @@ public class WebCrawlerSearch {
 			}
 
 			//---------------------iterator for links----------------------------------------------
+			
 			Iterator it = set.iterator();
 			while(it.hasNext()) {
-				
 				link = (String) it.next()+"";
 				if(link != null && link.trim() != "" && !result.contains(link) && link.contains(".html")) {
 					System.out.println(link);
 					getURL(link);
-				}
-				else {
-					String skipLink = link;
-					if(!(result).contains(skipLink)) {
-						set.remove(link);
-						System.out.println(skipLink);
-						getURL(skipLink);
-					}
-					
 				}
 			}
 			
@@ -102,4 +103,5 @@ public class WebCrawlerSearch {
 		WebCrawlerSearch web = new WebCrawlerSearch();
 		web.find();		
 	}
+
 }
