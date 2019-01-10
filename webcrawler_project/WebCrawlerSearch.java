@@ -33,8 +33,8 @@ public class WebCrawlerSearch {
 			System.out.println(img.next());
 		}
 		
-		//---------------------------print external links------------------------------
-		System.out.println("External links from ->"+url);
+		//---------------------------print links------------------------------
+		System.out.println("links from ->"+url);
 		Iterator ext = webExternal.iterator();
 		while(ext.hasNext()) {
 			System.out.println(ext.next());
