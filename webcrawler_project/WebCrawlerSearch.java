@@ -18,13 +18,7 @@ public class WebCrawlerSearch {
 	
 	public String find() {
 		getURL(url);
-		//---------------------------print link ------------------------------
-//		System.out.println("links from ->"+url);
-//		
-//		Iterator link = result.iterator();
-//		while(link.hasNext()) {
-//			System.out.println(link.next());
-//		}
+
 		
 		//---------------------------print images ------------------------------
 		System.out.println("Images from ->"+url);
@@ -33,8 +27,8 @@ public class WebCrawlerSearch {
 			System.out.println(img.next());
 		}
 		
-		//---------------------------print links------------------------------
-		System.out.println("links from ->"+url);
+		//---------------------------print external links------------------------------
+		System.out.println("External links from ->"+url);
 		Iterator ext = webExternal.iterator();
 		while(ext.hasNext()) {
 			System.out.println(ext.next());
@@ -59,8 +53,6 @@ public class WebCrawlerSearch {
 			for(Element e: links) {
 				if(e.attr("abs:href")!=null && e.attr("abs:href").trim()!="") {
 					set.add(e.attr("abs:href"));
-					set.remove(a);
-					
 				}
 				
 			}
