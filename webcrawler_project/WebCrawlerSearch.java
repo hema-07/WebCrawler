@@ -1,4 +1,3 @@
-
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -13,6 +12,14 @@ public class WebCrawlerSearch {
 	
 	public String find() {
 		getURL("http://www.wipro.com");
+		Iterator it1 = result.iterator();
+		while(it1.hasNext()) {
+			System.out.println(it1.next());
+		}
+		Iterator it = set.iterator();
+		while(it.hasNext()) {
+			System.out.println(it.next());
+		}
 		return "check your console";
 	}
 	
@@ -20,18 +27,16 @@ public class WebCrawlerSearch {
 		Document doc = null;
 		String link = null;
 		try {
-			System.out.println(a);
+			
 			doc = Jsoup.connect(a).get();
 			org.jsoup.select.Elements links = doc.select("a");
 			
 			for(Element e: links) {
-				
 				if(e.attr("abs:href")!=null && e.attr("abs:href").trim()!="") {
 					result.add(a);
 					set.add(e.attr("abs:href"));
 					set.remove(a);
-				}
-				
+				}		
 			}
 
 			Iterator it = set.iterator();
@@ -52,18 +57,10 @@ public class WebCrawlerSearch {
 		}
 		catch (IOException e) {
 			e.printStackTrace();
-		}
-		
+		}	
 	}
-	
 	public static void main(String[] args) {
-		
 		WebCrawlerSearch web = new WebCrawlerSearch();
-		web.find();
-		
-	}
-
-
-	
+		web.find();	
+	}	
 }
-
